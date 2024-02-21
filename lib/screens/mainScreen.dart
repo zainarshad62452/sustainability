@@ -9,7 +9,10 @@ import 'package:sustainability/screens/widgets/loading.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MainScreen extends StatelessWidget {
-  final PowerController powerCntr = Get.put(PowerController()); // Ensure PowerController is properly defined
+  final PowerController powerCntr = Get.put(PowerController());
+  String houseNo;
+  var color = Colors.green.shade800.obs;
+  MainScreen({required this.houseNo});
 
 
   @override
@@ -17,13 +20,20 @@ class MainScreen extends StatelessWidget {
     return GetBuilder<PowerController>(
       init: powerCntr,
       initState: (_) {
+        // double total = double.parse(powerCntr.allPowers?.value
+        //     .where((element) =>
+        // element.year == powerCntr.selectedValue.value &&
+        //     element.houseNo == houseNo)
+        //     .first.totalPowerConsp.toString()??"0.0");
+        // color.value = total<200000?Colors.green:total<350000?Colors.yellow:Colors.red;
       },
       builder: (controller) {
         return Obx(() => Stack(
           children: [
             Scaffold(
               appBar: AppBar(
-                title: Text("MainScreen"),
+                backgroundColor: color.value,
+                title: Text("MainScreen",style: TextStyle(color: color.value==Colors.yellow?Colors.black:Colors.white),),
                 actions: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -37,21 +47,12 @@ class MainScreen extends StatelessWidget {
                           .toList(),
                       onChanged: (value) {
                         powerCntr.selectedValue.value = value!;
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DropdownButton<String>(
-                      value: powerCntr.selectedHouseValue.value,
-                      items: powerCntr.allHouses?.value
-                          .map((e) => DropdownMenuItem(
-                        child: Text("${e}"),
-                        value: e,
-                      ))
-                          .toList(),
-                      onChanged: (value) {
-                        powerCntr.selectedHouseValue.value = value!;
+                        // double total = double.parse(powerCntr.allPowers!.value
+                        //     .where((element) =>
+                        // element.year == powerCntr.selectedValue.value &&
+                        //     element.houseNo == houseNo)
+                        //     .first.totalPowerConsp.toString());
+                        // color.value = total<200000?Colors.green:total<350000?Colors.yellow:Colors.red;
                       },
                     ),
                   ),
@@ -65,14 +66,14 @@ class MainScreen extends StatelessWidget {
                         powerCntr.allPowers!.value
                             .where((element) =>
                         element.year == powerCntr.selectedValue.value &&
-                            element.houseNo == powerCntr.selectedHouseValue.value)
+                            element.houseNo == houseNo)
                             .isNotEmpty)
                       PowerConsumptionPage(
                         powerModel: powerCntr.allPowers!.value
                             .where((element) =>
                         element.year == powerCntr.selectedValue.value &&
-                            element.houseNo == powerCntr.selectedHouseValue.value)
-                            .first, isAdmin: FirebaseAuth.instance.currentUser!=null,
+                            element.houseNo == houseNo)
+                            .first, isAdmin: FirebaseAuth.instance.currentUser!=null, color: color.value,
                       )
                     else
                       Center(child: Text("No Data Found")),

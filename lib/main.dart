@@ -36,6 +36,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sustainability',
+      theme: ThemeData(
+        primaryColor: Colors.green.shade800,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.green.shade800,
+          foregroundColor: Colors.white
+        )
+      ),
       home: SplashScreen(),
     );
   }

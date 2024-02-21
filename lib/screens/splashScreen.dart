@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sustainability/screens/QrCodeScreen.dart';
+import 'package:sustainability/screens/adminMainPage.dart';
+import 'package:sustainability/screens/auth/skip.dart';
+import 'package:sustainability/screens/buildingsPage.dart';
 import 'package:sustainability/screens/mainScreen.dart';
 import 'package:sustainability/screens/powerInputPage.dart';
 import '../services/Reception.dart';
@@ -21,11 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   _SplashScreenState() {
     new Timer(const Duration(milliseconds: 2000), () {
       setState(() {
-        if(kIsWeb){
-          Get.offAll(()=>MainScreen());
-        }else{
-          Get.offAll(()=>QRCodeScreen());
-        }
+          Get.offAll(()=>PowerConsumptionIntro());
       });
     });
 
@@ -46,8 +45,8 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
             colors: [
-              Colors.redAccent.shade100,
-              Colors.red
+              Colors.green.shade800,
+              Colors.green.shade800
             ],
             begin: const FractionalOffset(0, 0),
             end: const FractionalOffset(1.0, 0.0),
@@ -66,13 +65,14 @@ class _SplashScreenState extends State<SplashScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'SUSTAINABILITY',
-                        style: GoogleFonts.b612(
-                            color: Colors.white,
-                            fontSize: 35,
-                            fontWeight: FontWeight.w700),
-                      ),
+                      // Text(
+                      //   'SUSTAINABILITY',
+                      //   style: GoogleFonts.b612(
+                      //       color: Colors.white,
+                      //       fontSize: 35,
+                      //       fontWeight: FontWeight.w700),
+                      // ),
+                      Image.asset("assets/logo.jpg")
                     ],
                   ),
                 ),

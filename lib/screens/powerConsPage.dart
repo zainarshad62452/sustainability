@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sustainability/models/powerModel.dart';
 import 'package:sustainability/screens/editPowerPage.dart';
+import 'package:sustainability/screens/tipsPage.dart';
 import 'package:sustainability/services/powerServices.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class PowerConsumptionPage extends StatelessWidget {
   PowerModel powerModel;
   bool isAdmin;
+  Color color;
 
-  PowerConsumptionPage({required this.powerModel,required this.isAdmin});
+  PowerConsumptionPage({required this.powerModel,required this.isAdmin,required this.color});
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +39,33 @@ class PowerConsumptionPage extends StatelessWidget {
             }, icon: Icon(Icons.delete,color: Colors.red,)),
           ],),
         ),
-        Text('${powerModel.year} Power Consumption (kW)',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30),),
+        GestureDetector(
+          onTap: ()=>Get.to(()=>TipsPage(totalConsp:
+          double.parse(powerModel.totalPowerConsp.toString())
+          )),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.lightbulb_circle_outlined,color: double.parse(powerModel.totalPowerConsp.toString())<200000?Colors.green.shade800:double.parse(powerModel.totalPowerConsp.toString())<350000?Colors.yellow:Colors.red,size: 50.0,),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left:15.0),
+                    child: Text("Tips",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Text('${powerModel.year} Power Consumption (kW)',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: color==Colors.yellow?Colors.black:Colors.white),),
         Container(
           height: 300,
           child: SfCartesianChart(
@@ -47,8 +75,8 @@ class PowerConsumptionPage extends StatelessWidget {
                 dataSource: powerModel.powerConsumption?.asMap().entries.map((e) => PowerData(e.key, double.parse(e.value.toString()))).toList(),
                 xValueMapper: (PowerData power, _) => powerModel.dates?[power.index],
                 yValueMapper: (PowerData power, _) => power.value,
-                color: Colors.tealAccent,
-                markerSettings: MarkerSettings(isVisible: true,color: Colors.tealAccent),
+                color: color,
+                markerSettings: MarkerSettings(isVisible: true,color: color),
               ),
             ],
           ),
@@ -67,11 +95,13 @@ class PowerConsumptionPage extends StatelessWidget {
             children: [
               customWidget('Total Power Consumption (kW)',"${powerModel.totalPowerConsp} kW",Icons.show_chart),
               SizedBox(height: 16),
+              customWidget('Carbon FootPrints (tCO2e)',"${((double.parse(powerModel.totalPowerConsp.toString())*0.21233)/1000)} tCO2e",Icons.energy_savings_leaf_outlined),
+              SizedBox(height: 16),
               customWidget('Consumption in Kitchen (kW)',"${powerModel.consumpInKitchen} kW",Icons.house_rounded),
               SizedBox(height: 16),
               customWidget('Total AC Consumption (kW)',"${powerModel.acConsmp} kW",Icons.ac_unit_outlined),
               SizedBox(height: 16),
-              customWidget('Total Consumption Amount (AED)',"${powerModel.totalAmount} AED",Icons.money), // Example text, replace with actual data
+              customWidget('Total Consumption Amount (AED)',"${powerModel.totalAmount} AED",Icons.money),
             ],
           ),
         ),
@@ -85,21 +115,21 @@ class PowerConsumptionPage extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(20.0),
         decoration: BoxDecoration(
-          color: Colors.yellow.shade100,
+          color: color,
           borderRadius: BorderRadius.circular(5.0),
         ),
         child: Row(
           children: [
-            Icon(icon),
+            Icon(icon,color: color==Colors.yellow?Colors.black:Colors.white,),
             Expanded(
               child: Column(
                 children: [
                   Text(
                     heading,
-                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,color: color==Colors.yellow?Colors.black:Colors.white),
                   ),
                   SizedBox(height: 8),
-                  Text(amount,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0),),
+                  Text(amount,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20.0,color: color==Colors.yellow?Colors.black:Colors.white),),
                 ],
               ),
             )

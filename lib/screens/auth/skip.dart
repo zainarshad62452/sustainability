@@ -2,40 +2,45 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:sustainability/screens/buildingsPage.dart';
 
-import 'firebaseAuth.dart';
+// Import Firebase authentication if needed
+// import 'firebaseAuth.dart';
 
-class Skip extends StatefulWidget {
+class PowerConsumptionIntro extends StatefulWidget {
   @override
-  _SkipState createState() => _SkipState();
+  _PowerConsumptionIntroState createState() => _PowerConsumptionIntroState();
 }
 
-class _SkipState extends State<Skip> {
-  List<PageViewModel> getpages() {
+class _PowerConsumptionIntroState extends State<PowerConsumptionIntro> {
+  List<PageViewModel> getPages() {
     return [
       PageViewModel(
         title: '',
         image: Image.asset(
-          'assets/search-bg.png',
-          //fit: BoxFit.cover,
+          'assets/energy_saving.png',
+          // fit: BoxFit.cover,
         ),
-        //body: "Search Doctors",
         bodyWidget: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Search Hospitals',
-              style:
-                  GoogleFonts.lato(fontSize: 30, fontWeight: FontWeight.w900),
-            ),
-            Text(
-              'Find popular hospitals nearby you',
+              'Save Energy',
               style: GoogleFonts.lato(
-                  fontSize: 15,
-                  color: Colors.grey[500],
-                  fontWeight: FontWeight.w800),
+                  fontSize: 30, fontWeight: FontWeight.w900),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Learn how to reduce your energy consumption and save on bills.',
+                style: GoogleFonts.lato(
+                    fontSize: 25,
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w800),
+              ),
             ),
           ],
         ),
@@ -43,24 +48,26 @@ class _SkipState extends State<Skip> {
       PageViewModel(
         title: '',
         image: Image.asset(
-          'assets/nutritons.jpeg',
-          //fit: BoxFit.cover,
+          'assets/environment.png',
+          // fit: BoxFit.cover,
         ),
-        //body: "Search Doctors",
         bodyWidget: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Get Nutrition',
-              style:
-                  GoogleFonts.lato(fontSize: 30, fontWeight: FontWeight.w900),
-            ),
-            Text(
-              'Find information about daily nutrition',
+              'Protect the Environment',
               style: GoogleFonts.lato(
-                  fontSize: 15,
-                  color: Colors.grey[500],
-                  fontWeight: FontWeight.w800),
+                  fontSize: 30, fontWeight: FontWeight.w900),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Understand how your energy usage impacts the environment and ways to minimize it.',
+                style: GoogleFonts.lato(
+                    fontSize: 25,
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w800),
+              ),
             ),
           ],
         ),
@@ -73,7 +80,7 @@ class _SkipState extends State<Skip> {
     return Scaffold(
       body: IntroductionScreen(
         globalBackgroundColor: Colors.white,
-        pages: getpages(),
+        pages: getPages(),
         showNextButton: false,
         showSkipButton: true,
         skip: SizedBox(
@@ -84,12 +91,12 @@ class _SkipState extends State<Skip> {
               child: Text(
                 'Skip',
                 textAlign: TextAlign.center,
-                style:
-                    GoogleFonts.lato(fontSize: 25, fontWeight: FontWeight.w900),
+                style: GoogleFonts.lato(
+                    fontSize: 25, fontWeight: FontWeight.w900),
               ),
             ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)),
             color: Colors.tealAccent.shade700,
             shadowColor: Colors.tealAccent.shade100,
             elevation: 5,
@@ -102,25 +109,27 @@ class _SkipState extends State<Skip> {
               child: Text(
                 'Continue',
                 textAlign: TextAlign.center,
-                style:
-                    GoogleFonts.lato(fontSize: 15, fontWeight: FontWeight.w900),
+                style: GoogleFonts.lato(
+                    fontSize: 15, fontWeight: FontWeight.w900),
               ),
             ),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)),
             color: Colors.tealAccent.shade700,
             shadowColor: Colors.tealAccent.shade100,
             elevation: 5,
           ),
         ),
-        onDone: () => _pushPage(context, FireBaseAuth()),
+        onDone: () {
+          Get.offAll(()=>BuildingPage());
+        },
       ),
     );
   }
 
-  void _pushPage(BuildContext context, Widget page) {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (_) => page),
-    );
-  }
+// void _pushPage(BuildContext context, Widget page) {
+//   Navigator.of(context).push(
+//     MaterialPageRoute<void>(builder: (_) => page),
+//   );
+// }
 }

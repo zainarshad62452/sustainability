@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sustainability/Services/Authentication.dart';
+import 'package:sustainability/screens/buildingsPage.dart';
 import 'package:sustainability/screens/mainScreen.dart';
 import 'package:sustainability/screens/powerInputPage.dart';
 
@@ -29,7 +30,7 @@ class AdminMainPage extends StatelessWidget {
                   Get.to(()=>PowerInputPage());
                 },"Add Power Consumption Record"),
                 buildWidget((){
-                  Get.to(()=>MainScreen());
+                  Get.to(()=>BuildingPage());
                 },"Manage Power Consumption Record"),
               ],
             ),
