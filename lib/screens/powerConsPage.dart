@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sustainability/models/powerModel.dart';
@@ -9,16 +10,17 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 class PowerConsumptionPage extends StatelessWidget {
   PowerModel powerModel;
   bool isAdmin;
+  String totalPowerConsp;
   Color color;
 
-  PowerConsumptionPage({required this.powerModel,required this.isAdmin,required this.color});
+  PowerConsumptionPage({required this.powerModel,required this.isAdmin,required this.color,required this.totalPowerConsp});
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Visibility(
-          visible: isAdmin,
+          visible: FirebaseAuth.instance.currentUser?.email == "admin@sustainability.com",
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -41,7 +43,7 @@ class PowerConsumptionPage extends StatelessWidget {
         ),
         GestureDetector(
           onTap: ()=>Get.to(()=>TipsPage(totalConsp:
-          double.parse(powerModel.totalPowerConsp.toString())
+          double.parse(totalPowerConsp)
           )),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -50,7 +52,7 @@ class PowerConsumptionPage extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(Icons.lightbulb_circle_outlined,color: double.parse(powerModel.totalPowerConsp.toString())<200000?Colors.green.shade800:double.parse(powerModel.totalPowerConsp.toString())<350000?Colors.yellow:Colors.red,size: 50.0,),
+                    child: Icon(Icons.lightbulb_circle_outlined,color: double.parse(totalPowerConsp.toString())<200000?Colors.green.shade800:double.parse(totalPowerConsp.toString())<350000?Colors.yellow:Colors.red,size: 50.0,),
                   ),
                 ],
               ),
@@ -97,11 +99,6 @@ class PowerConsumptionPage extends StatelessWidget {
               SizedBox(height: 16),
               customWidget('Carbon FootPrints (tCO2e)',"${((double.parse(powerModel.totalPowerConsp.toString())*0.21233)/1000)} tCO2e",Icons.energy_savings_leaf_outlined),
               SizedBox(height: 16),
-              customWidget('Consumption in Kitchen (kW)',"${powerModel.consumpInKitchen} kW",Icons.house_rounded),
-              SizedBox(height: 16),
-              customWidget('Total AC Consumption (kW)',"${powerModel.acConsmp} kW",Icons.ac_unit_outlined),
-              SizedBox(height: 16),
-              customWidget('Total Consumption Amount (AED)',"${powerModel.totalAmount} AED",Icons.money),
             ],
           ),
         ),

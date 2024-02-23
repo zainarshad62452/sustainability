@@ -46,7 +46,7 @@ class PowerServices {
       // Add powerModel to power_consumption collection
       await powerCollection.doc(powerModel.year.toString()).set(powerModel.toJson());
 
-      // Get.back();
+      Get.back();
       snackbar("Done", "Power Added Successfully");
       loading(false);
     } catch (e) {

@@ -208,44 +208,11 @@ class _PowerInputPageState extends State<PowerInputPage> {
                       },
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'House Number'),
+                      decoration: InputDecoration(labelText: 'Building Name'),
                       onSaved: (value) => _powerModel.houseNo = value,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Please enter a house number';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Consumption in Kitchen (kW)'),
-                      keyboardType: TextInputType.number,
-                      onSaved: (value) => _powerModel.consumpInKitchen = value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter consumption in kitchen';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Total AC Consumption (kW)'),
-                      keyboardType: TextInputType.number,
-                      onSaved: (value) => _powerModel.acConsmp = value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter total AC consumption';
-                        }
-                        return null;
-                      },
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(labelText: 'Total Amount'),
-                      keyboardType: TextInputType.number,
-                      onSaved: (value) => _powerModel.totalAmount = value,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter total amount';
+                          return 'Please enter a Building Name';
                         }
                         return null;
                       },

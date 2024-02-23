@@ -13,23 +13,23 @@ class TipsPage extends StatelessWidget {
     // Determine tips based on energy consumption level
     if (totalConsp < 200000) {
       tips = [
-        "Use energy-efficient LED light bulbs throughout your home.",
-        "Unplug electronics when not in use to reduce phantom power consumption.",
-        "Set your thermostat to a lower temperature in the winter and higher temperature in the summer."
+        "Thank you for saving the energy!",
+        "Keep up the good work.",
+        "👍"
       ];
       tipsColor = Colors.green; // Example color for low consumption
     } else if (totalConsp >= 200000 && totalConsp < 350000) {
       tips = [
-        "Upgrade to energy-efficient appliances with ENERGY STAR ratings.",
-        "Install a programmable thermostat to optimize heating and cooling schedules.",
-        "Seal air leaks around windows, doors, and ducts to improve energy efficiency."
+        "Turn off the AC when opening windows.",
+        "Use electronics when necessary.",
+        "Turn off the light when leaving classrooms/meetings room."
       ];
       tipsColor = Colors.orange; // Example color for medium consumption
     } else {
       tips = [
-        "Invest in renewable energy sources like solar panels or wind turbines.",
-        "Schedule regular maintenance for HVAC systems to ensure optimal performance.",
-        "Consider installing smart home devices to monitor and control energy usage remotely."
+        "Turn off electronics that is not being used.",
+        "Increase the temperature of AC by 1 degrees.",
+        "Before leaving any room turn off the AC and lights."
       ];
       tipsColor = Colors.red; // Example color for high consumption
     }

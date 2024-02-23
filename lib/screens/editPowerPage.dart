@@ -64,11 +64,11 @@ class _EditPowerPageState extends State<EditPowerPage> {
                 ),
                 TextFormField(
                   initialValue: _editedPowerModel.houseNo,
-                  decoration: InputDecoration(labelText: 'House Number'),
+                  decoration: InputDecoration(labelText: 'Building Name'),
                   onSaved: (value) => _editedPowerModel.houseNo = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a house number';
+                      return 'Please enter a building name';
                     }
                     return null;
                   },
@@ -81,42 +81,6 @@ class _EditPowerPageState extends State<EditPowerPage> {
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter total power consumption';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  initialValue: _editedPowerModel.consumpInKitchen,
-                  decoration: InputDecoration(labelText: 'Consumption in Kitchen (kW)'),
-                  keyboardType: TextInputType.number,
-                  onSaved: (value) => _editedPowerModel.consumpInKitchen = value,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter consumption in kitchen';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  initialValue: _editedPowerModel.acConsmp,
-                  decoration: InputDecoration(labelText: 'Total AC Consumption (kW)'),
-                  keyboardType: TextInputType.number,
-                  onSaved: (value) => _editedPowerModel.acConsmp = value,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter total AC consumption';
-                    }
-                    return null;
-                  },
-                ),
-                TextFormField(
-                  initialValue: _editedPowerModel.totalAmount,
-                  decoration: InputDecoration(labelText: 'Total Amount'),
-                  keyboardType: TextInputType.number,
-                  onSaved: (value) => _editedPowerModel.totalAmount = value,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter total amount';
                     }
                     return null;
                   },

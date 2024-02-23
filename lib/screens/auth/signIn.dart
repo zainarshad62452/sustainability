@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sustainability/screens/auth/register.dart';
 
@@ -146,7 +147,7 @@ class _SignInState extends State<SignIn> {
               },
               textInputAction: TextInputAction.done,
               validator: (value) {
-                if (value!.isEmpty) return 'Please enter the Passord';
+                if (value!.isEmpty) return 'Please enter the Password';
                 return null;
               },
               obscureText: true,
@@ -176,6 +177,38 @@ class _SignInState extends State<SignIn> {
                     elevation: 2,
                     // primary: Colors.indigo[900],
                     primary: Colors.tealAccent.shade700,
+                    onPrimary: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 25.0,),
+            Text("OR",style: TextStyle(fontSize: 20),),
+            Container(
+              padding: const EdgeInsets.only(top: 25.0),
+              child: SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  focusNode: f3,
+                  child: Text(
+                    "<- Back",
+                    style: GoogleFonts.lato(
+                      color: Colors.white,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () async {
+                    Get.back();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    elevation: 2,
+                    // primary: Colors.indigo[900],
+                    primary: Colors.black54,
                     onPrimary: Colors.black,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0),

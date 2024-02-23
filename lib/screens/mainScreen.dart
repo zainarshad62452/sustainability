@@ -10,9 +10,9 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MainScreen extends StatelessWidget {
   final PowerController powerCntr = Get.put(PowerController());
-  String houseNo;
+  String houseNo,totalPowerConsp;
   var color = Colors.green.shade800.obs;
-  MainScreen({required this.houseNo});
+  MainScreen({required this.houseNo,required this.totalPowerConsp});
 
 
   @override
@@ -73,7 +73,7 @@ class MainScreen extends StatelessWidget {
                             .where((element) =>
                         element.year == powerCntr.selectedValue.value &&
                             element.houseNo == houseNo)
-                            .first, isAdmin: FirebaseAuth.instance.currentUser!=null, color: color.value,
+                            .first, isAdmin: FirebaseAuth.instance.currentUser!=null, color: color.value, totalPowerConsp: totalPowerConsp,
                       )
                     else
                       Center(child: Text("No Data Found")),
