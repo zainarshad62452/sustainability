@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ Future<void> main() async {
   }else{
 
   await Firebase.initializeApp();
+  await FirebaseAuth.instance.signOut();
   }
   Get.put(LoadingController());
   Get.put(PowerController());

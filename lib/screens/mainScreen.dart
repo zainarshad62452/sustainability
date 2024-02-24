@@ -6,6 +6,7 @@ import 'package:sustainability/controllers/powerController.dart';
 import 'package:sustainability/models/powerModel.dart';
 import 'package:sustainability/screens/powerConsPage.dart';
 import 'package:sustainability/screens/widgets/loading.dart';
+import 'package:sustainability/services/powerServices.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class MainScreen extends StatelessWidget {
@@ -20,12 +21,9 @@ class MainScreen extends StatelessWidget {
     return GetBuilder<PowerController>(
       init: powerCntr,
       initState: (_) {
-        // double total = double.parse(powerCntr.allPowers?.value
-        //     .where((element) =>
-        // element.year == powerCntr.selectedValue.value &&
-        //     element.houseNo == houseNo)
-        //     .first.totalPowerConsp.toString()??"0.0");
-        // color.value = total<200000?Colors.green:total<350000?Colors.yellow:Colors.red;
+        powerCntr.allYears?.value = getValues();
+        powerCntr.selectedValue.value = powerCntr.allYears!.value.first;
+        Future.delayed(Duration(seconds: 3));
       },
       builder: (controller) {
         return Obx(() => Stack(
@@ -86,6 +84,19 @@ class MainScreen extends StatelessWidget {
         ));
       },
     );
+  }
+
+  List<String> getValues(){
+    List<String> allValues = [];
+    final data = powerCntr.allPowers?.value;
+    for (var dat in data!){
+      if(dat.houseNo == houseNo){
+        if(!allValues.contains(dat.year)){
+        allValues.add(dat.year.toString());
+        }
+      }
+    }
+    return allValues;
   }
 }
 

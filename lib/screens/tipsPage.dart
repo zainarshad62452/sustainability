@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class TipsPage extends StatelessWidget {
   final double totalConsp;
@@ -13,9 +14,6 @@ class TipsPage extends StatelessWidget {
     // Determine tips based on energy consumption level
     if (totalConsp < 200000) {
       tips = [
-        "Thank you for saving the energy!",
-        "Keep up the good work.",
-        "👍"
       ];
       tipsColor = Colors.green; // Example color for low consumption
     } else if (totalConsp >= 200000 && totalConsp < 350000) {
@@ -44,8 +42,8 @@ class TipsPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Tips to Reduce Energy Consumption',
+              Text(tipsColor!=Colors.green?
+                'Tips to Reduce Energy Consumption':"Thank You For Saving The Energy",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18.0,
@@ -54,6 +52,14 @@ class TipsPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
+              Visibility(
+                visible: tipsColor==Colors.green,
+                  child: Column(
+                children: [
+                  Text("Keep The Good Work!",style: TextStyle(fontSize: 20),),
+                  Lottie.asset("assets/thanks.json"),
+                ],
+              )),
               for (String tip in tips) ...[
                 ListTile(
                   leading: Icon(Icons.lightbulb),

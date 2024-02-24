@@ -142,4 +142,16 @@ class PowerServices {
       alertSnackbar(e.toString());
     }
   }
+  Future<void> deleteBuilding(String powerModel) async {
+    try {
+      loading(true);
+      await firestore.collection("power_consumption").doc(powerModel).delete();
+      Get.back();
+      Get.back();
+      snackbar("Done", "The Building ${powerModel} is deleted successfully");
+      loading(false);
+    } catch (e) {
+      alertSnackbar(e.toString());
+    }
+  }
 }
