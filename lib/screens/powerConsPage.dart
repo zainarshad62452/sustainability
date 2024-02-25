@@ -67,7 +67,7 @@ class PowerConsumptionPage extends StatelessWidget {
             ],
           ),
         ),
-        Text('${powerModel.year} Power Consumption (kW)',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: color==Colors.yellow?Colors.black:Colors.white),),
+        Text(powerModel.houseNo.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 30,color: double.parse(totalPowerConsp.toString())<200000?Colors.green.shade800:double.parse(totalPowerConsp.toString())<350000?Colors.yellow:Colors.red),),
         Container(
           height: 300,
           child: SfCartesianChart(
