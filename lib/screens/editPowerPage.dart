@@ -25,6 +25,7 @@ class _EditPowerPageState extends State<EditPowerPage> {
   void initState() {
     super.initState();
     _editedPowerModel = widget.powerModel;
+    print("This is before ${_editedPowerModel.toJson()}");
     _monthsController = TextEditingController(text: _editedPowerModel.dates?.length.toString() ?? '');
     _generateMonthFields(_editedPowerModel.dates?.length ?? 0);
     _populateControllers();
@@ -134,7 +135,9 @@ class _EditPowerPageState extends State<EditPowerPage> {
                         _formKey.currentState!.save();
                         _editedPowerModel.dates = _monthsInEnglish.take(int.tryParse(_monthsController.text) ?? 0).toList();
                         _editedPowerModel.powerConsumption = _powerConsumptionControllers.map((controller) => double.tryParse(controller.text) ?? 0).toList();
-                        print(_editedPowerModel.toJson());
+                        _editedPowerModel.id = widget.powerModel.id;
+                        PowerModel newModel = PowerModel(id: widget.powerModel.id);
+                        print("This is data ${_editedPowerModel.id}");
                         loading(true);
                         await PowerServices().updatePower(_editedPowerModel);
                       }

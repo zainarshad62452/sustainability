@@ -44,6 +44,7 @@ class PowerServices {
       }
 
       // Add powerModel to power_consumption collection
+
       await powerCollection.doc(powerModel.year.toString()).set(powerModel.toJson());
 
       Get.back();
@@ -121,19 +122,20 @@ class PowerServices {
 
   Future<void> updatePower(PowerModel powerModel) async {
     try {
-      await firestore.collection("power_consumption").doc(powerModel.houseNo).collection("power_consumption").doc(powerModel.id).update(powerModel.toJson());
+      await firestore.collection("power_consumption").doc(powerModel.houseNo).collection("power_consumption").doc(powerModel.year).update(powerModel.toJson());
       Get.back();
       snackbar("Done", "Edited Successfully");
       loading(false);
     } catch (e) {
       alertSnackbar(e.toString());
+      loading(false);
     }
   }
 
   Future<void> deletePower(PowerModel powerModel) async {
     try {
       loading(true);
-      await firestore.collection("power_consumption").doc(powerModel.houseNo).collection("power_consumption").doc(powerModel.id).delete();
+      await firestore.collection("power_consumption").doc(powerModel.houseNo).collection("power_consumption").doc(powerModel.year).delete();
       Get.back();
       Get.back();
       snackbar("Done", "The Power of ${powerModel.houseNo} of ${powerModel.year} deleted successfully");
