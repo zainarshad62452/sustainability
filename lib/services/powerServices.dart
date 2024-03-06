@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:sustainability/controllers/powerController.dart';
 import 'package:sustainability/models/buildingModel.dart';
 import 'package:sustainability/models/powerModel.dart';
+import 'package:sustainability/models/powerModelJson.dart';
+import 'package:sustainability/models/seriesModel.dart';
 import '../Controllers/loading.dart';
 import '../screens/widgets/snackbar.dart';
 
@@ -53,6 +55,59 @@ class PowerServices {
     } catch (e) {
       loading(false);
       alertSnackbar("Can't add Power Consumption");
+    }
+  }
+  Future<void> addPowerByJson({required PowerModelJson powerModel}) async {
+    try {
+      final powerCollection = firestore
+          .collection("power_consumption")
+          .doc(powerModel.buildings)
+          .collection("power_consumption");
+
+      final buildingDoc = firestore.collection("power_consumption").doc(powerModel.buildings);
+      final buildingSnapshot = await buildingDoc.get();
+      double totalPowerConsp = double.parse(powerModel.the11.toString());
+
+      // If building exists, calculate average totalPowerConsp
+      if (buildingSnapshot.exists) {
+        final buildingData = buildingSnapshot.data() as Map<String, dynamic>;
+        final existingTotalPowerConsp = double.parse(buildingData['totalPowerConsp'].toString()) ?? 0.0;
+        final totalCount = (buildingData['powerCount'] ?? 0) + 1;
+        totalPowerConsp = (existingTotalPowerConsp + double.parse(powerModel.the11.toString())) / totalCount;
+
+        // Update totalPowerConsp and increment powerCount in building document
+        await buildingDoc.update({
+          'totalPowerConsp': totalPowerConsp.toString(),
+          'powerCount': totalCount,
+        });
+      } else {
+        // Set totalPowerConsp and initialize powerCount in building document
+        await buildingDoc.set({
+          'id':powerModel.buildings,
+          'totalPowerConsp': totalPowerConsp,
+          'powerCount': 1,
+        });
+      }
+
+      // Add powerModel to power_consumption collection
+
+      await powerCollection.doc(powerModel.year.toString()).set(powerModel.toJson()).then((value) => print(powerModel.toJson()));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+  Future<void> addSeries({required SeriesModel seriesModel}) async {
+    try {
+       await firestore
+          .collection("series")
+          .doc(seriesModel.series).set(seriesModel.toJson()).then((value) {
+      Get.back();
+      snackbar("Done", "Series Added Successfully");
+       });
+      loading(false);
+    } catch (e) {
+      loading(false);
+      alertSnackbar("Can't add Series Consumption");
     }
   }
 
@@ -119,6 +174,23 @@ class PowerServices {
       return null;
     }
   }
+  Stream<List<SeriesModel>>? streamAllSeries() {
+    try {
+      return firestore.collection("series").snapshots().map((event) {
+        loading(false);
+        List<SeriesModel> list = [];
+        event.docs.forEach((element) {
+          final admin = SeriesModel.fromJson(element.data());
+          list.add(admin);
+        });
+        loading(false);
+        return list;
+      });
+    } catch (e) {
+      loading(false);
+      return null;
+    }
+  }
 
   Future<void> updatePower(PowerModel powerModel) async {
     try {
@@ -151,6 +223,18 @@ class PowerServices {
       Get.back();
       Get.back();
       snackbar("Done", "The Building ${powerModel} is deleted successfully");
+      loading(false);
+    } catch (e) {
+      alertSnackbar(e.toString());
+    }
+  }
+  Future<void> deleteSeries(String powerModel) async {
+    try {
+      loading(true);
+      await firestore.collection("series").doc(powerModel).delete();
+      Get.back();
+      Get.back();
+      snackbar("Done", "The Series ${powerModel} is deleted successfully");
       loading(false);
     } catch (e) {
       alertSnackbar(e.toString());

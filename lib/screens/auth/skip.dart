@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:sustainability/screens/buildingsPage.dart';
+import 'package:sustainability/screens/seriesSelectionPage.dart';
 
 // Import Firebase authentication if needed
 // import 'firebaseAuth.dart';
@@ -121,7 +122,7 @@ class _PowerConsumptionIntroState extends State<PowerConsumptionIntro> {
           ),
         ),
         onDone: () {
-          Get.offAll(()=>BuildingPage());
+          Get.offAll(()=>SeriesSelectionPage());
         },
       ),
     );

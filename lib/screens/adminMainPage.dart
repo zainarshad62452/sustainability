@@ -4,6 +4,10 @@ import 'package:sustainability/Services/Authentication.dart';
 import 'package:sustainability/screens/buildingsPage.dart';
 import 'package:sustainability/screens/mainScreen.dart';
 import 'package:sustainability/screens/powerInputPage.dart';
+import 'package:sustainability/screens/seriesInputPage.dart';
+import 'package:sustainability/screens/seriesSelectionPage.dart';
+
+import 'addPowerByCsv.dart';
 
 class AdminMainPage extends StatelessWidget {
   const AdminMainPage({super.key});
@@ -27,11 +31,19 @@ class AdminMainPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 buildWidget((){
-                  Get.to(()=>PowerInputPage());
+                  showDialog(context: context, builder: (ctx)=>AlertDialog(title: Text("Select the action"),actions: [
+                    TextButton(onPressed: ()=>Get.back(), child: Text("Cancel")),
+                    ElevatedButton(onPressed: ()=>Get.to(()=>PowerInputPage()), child: Text("Add Power Consumption")),
+                    ElevatedButton(onPressed: ()=>Get.to(()=>SeriesInputPage()), child: Text("Add Series")),
+                  ],));
+                  // Get.to(()=>PowerInputPage());
                 },"Add Power Consumption Record"),
                 buildWidget((){
-                  Get.to(()=>BuildingPage());
+                  Get.to(()=>SeriesSelectionPage());
                 },"Manage Power Consumption Record"),
+                buildWidget((){
+                  Get.to(()=>FilePickerPage());
+                },"Upload Excel"),
               ],
             ),
           ),

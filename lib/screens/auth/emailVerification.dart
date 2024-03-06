@@ -138,10 +138,7 @@ class _ForgotPasswordVerificationPageState extends State<EmailVerification> {
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  elevation: 2,
-                                  // primary: Colors.indigo[900],
-                                  primary: Colors.tealAccent.shade700,
-                                  onPrimary: Colors.black,
+                                  foregroundColor: Colors.black, backgroundColor: Colors.tealAccent.shade700, elevation: 2,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(32.0),
                                   ),
@@ -168,10 +165,7 @@ class _ForgotPasswordVerificationPageState extends State<EmailVerification> {
                                   Authentication().signOut();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  elevation: 2,
-                                  // primary: Colors.indigo[900],
-                                  primary: Colors.tealAccent.shade700,
-                                  onPrimary: Colors.black,
+                                  foregroundColor: Colors.black, backgroundColor: Colors.tealAccent.shade700, elevation: 2,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(32.0),
                                   ),

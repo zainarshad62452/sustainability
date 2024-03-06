@@ -12,11 +12,11 @@ class TipsPage extends StatelessWidget {
     Color tipsColor;
 
     // Determine tips based on energy consumption level
-    if (totalConsp < 200000) {
+    if (totalConsp < 1000000) {
       tips = [
       ];
       tipsColor = Colors.green; // Example color for low consumption
-    } else if (totalConsp >= 200000 && totalConsp < 350000) {
+    } else if (totalConsp >= 1000000 && totalConsp < 1500000) {
       tips = [
         "Turn off the AC when opening windows.",
         "Use electronics when necessary.",
