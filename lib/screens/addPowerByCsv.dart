@@ -35,7 +35,6 @@ class _FilePickerPageState extends State<FilePickerPage> {
   // }
 
   Future<void> _handleUpload() async {
-    if (_fileName != null) {
       String filePath = await _getFilePath();
       // alertSnackbar(filePath);
       if (filePath.isNotEmpty) {
@@ -72,22 +71,6 @@ class _FilePickerPageState extends State<FilePickerPage> {
           );
         }
       }
-    }else{
-      // alertSnackbar("File is not available!.");
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("File is not selected."),
-          content: Text("Please select a CSV or XLSX file."),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text("OK"),
-            ),
-          ],
-        ),
-      );
-    }
   }
 
   Future<void> _addPowerFromJson(String jsonString) async {
