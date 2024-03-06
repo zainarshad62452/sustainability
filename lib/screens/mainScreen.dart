@@ -23,7 +23,7 @@ class MainScreen extends StatelessWidget {
       init: powerCntr,
       initState: (_) {
         powerCntr.allYears?.value = getValues();
-        powerCntr.selectedValue.value = powerCntr.allYears!.value.first;
+        powerCntr.selectedValue.value = powerCntr.allYears!.value.first??"";
         Future.delayed(Duration(seconds: 3));
       },
       builder: (controller) {

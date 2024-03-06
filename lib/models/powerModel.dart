@@ -24,7 +24,7 @@ class PowerModel {
     totalAmount: json['totalAmount'],
     houseNo: json['houseNo'],
     powerConsumption: (json['powerConsumption'] as List<dynamic>?)
-        ?.map((e) => e as double)
+        ?.map((e) => double.parse(e.toString()))
         .toList(),
     dates: (json['dates'] as List<dynamic>?)
         ?.map((e) => e.toString())

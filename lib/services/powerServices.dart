@@ -13,7 +13,7 @@ class PowerServices {
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
 
-  Future<void> addPower({required PowerModel powerModel}) async {
+  Future<void> addPower({required PowerModel powerModel,required String series}) async {
     try {
       final powerCollection = firestore
           .collection("power_consumption")
@@ -34,6 +34,7 @@ class PowerServices {
         // Update totalPowerConsp and increment powerCount in building document
         await buildingDoc.update({
           'totalPowerConsp': totalPowerConsp.toString(),
+          'series': series,
           'powerCount': totalCount,
         });
       } else {
@@ -41,6 +42,7 @@ class PowerServices {
         await buildingDoc.set({
           'id':powerModel.houseNo,
           'totalPowerConsp': totalPowerConsp,
+          'series': series,
           'powerCount': 1,
         });
       }
