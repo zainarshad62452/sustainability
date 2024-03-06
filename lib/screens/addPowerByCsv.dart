@@ -38,7 +38,7 @@ class _FilePickerPageState extends State<FilePickerPage> {
       String filePath = await _getFilePath();
       // alertSnackbar(filePath);
       if (filePath.isNotEmpty) {
-        String fileType = _fileName!.split('.').last.toLowerCase();
+        String fileType = filePath!.split('.').last.toLowerCase();
         if (fileType == "csv") {
           String csvString = await File(filePath).readAsString();
           String jsonString = csvServices.csvToJson(csvString);
